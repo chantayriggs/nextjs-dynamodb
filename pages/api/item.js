@@ -21,16 +21,34 @@ export default async function hander(req, res) {
 
 
 
-        // Gets an Item by ID
-        //  /api/item?id=
     if ( req.method === "GET" ) {
-        const { Item } = await dynamoDB.get({
-            Key: {
-                // pull id key from query object
-                id:req.query.id
-            }
-        })
-        res.status(200).json(Item)
+        if (req.query.get === "get_all"){
+            
+            const { Items } = await dynamoDB.scan({
+                TableName: process.env.TABLE_NAME,
+                AttributesToGet: [
+                  'id',
+                  'content',
+                  'createdAt'
+                ],
+            })
+
+            res.status(200).json(Items)
+
+
+            // Gets an Item by ID
+            //  /api/item?id=
+
+        } else {
+            const { Item } = await dynamoDB.get({
+                Key: {
+                    // pull id key from query object
+                    id:req.query.id
+                }
+            })
+            res.status(200).json(Item)
+        }
+
     }
 
 
