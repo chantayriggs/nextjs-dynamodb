@@ -5,9 +5,11 @@
     "nextjs-dynamo_db": "bin/nextjs-dynamo_db.js"
   },
   "scripts": {
-    "build": "echo \"The build step is not required when using JavaScript!\" && exit 0",
     "cdk": "cdk",
-    "test": "jest"
+    "test": "jest",
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
   },
   "devDependencies": {
     "@aws-cdk/assert": "1.105.0",
@@ -15,6 +17,13 @@
     "jest": "^26.4.2"
   },
   "dependencies": {
-    "@aws-cdk/core": "1.105.0"
+    "@aws-cdk/aws-dynamodb": "^1.105.0",
+    "@aws-cdk/core": "1.105.0",
+    "aws-sdk": "^2.912.0",
+    "next": "^10.2.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "swr": "^0.5.6",
+    "uuid": "^8.3.2"
   }
 }
