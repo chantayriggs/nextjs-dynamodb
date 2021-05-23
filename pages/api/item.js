@@ -4,14 +4,14 @@ import dynamoDB from "../../lib/dynamo"
 export default async function hander(req, res) {
 
 
-        // Creates an Item
+    // Creates an Item
     if ( req.method === "PUT" ) {
         const item = {
             id: uuid.v4(),
             content: req.body.content,
             createdAt: Date.now()
         }
-        // dynamoDB.put(item) returns a promise, so we will await it.
+    // dynamoDB.put(item) returns a promise, so we will await it.
         await dynamoDB.put({
             Item: item
         })
@@ -21,6 +21,8 @@ export default async function hander(req, res) {
 
 
 
+
+    // GETS ALL ITEMS
     if ( req.method === "GET" ) {
         if (req.query.get === "get_all"){
             
@@ -36,10 +38,11 @@ export default async function hander(req, res) {
             res.status(200).json(Items)
 
 
-            // Gets an Item by ID
-            //  /api/item?id=
 
+        // Gets an Item by ID
+        //  /api/item?id=
         } else {
+            console.log(req.query)
             const { Item } = await dynamoDB.get({
                 Key: {
                     // pull id key from query object
@@ -72,6 +75,7 @@ export default async function hander(req, res) {
     //  Deletes an Item
     //  /api/item\?id\=
     if ( req.method === "DELETE" ) {
+        console.log("hello")
         await dynamoDB.delete({
             Key: {
                 id: req.query.id
